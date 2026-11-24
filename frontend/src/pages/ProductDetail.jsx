@@ -34,6 +34,17 @@ const ProductDetail = () => {
   const backPath = fromPage === 'shop' ? '/shop' : '/';
   const backText = fromPage === 'shop' ? 'Back to Shop' : 'Back to Home';
 
+  // Where each product is sold on the Shopify store
+  const SHOPIFY_URLS = {
+    'beard-line-up-enhancement': 'https://clipculturehaircare.com/products/revive-premium-beard-line-up-enhancement',
+    'premium-beard-oil': 'https://clipculturehaircare.com/products/premium-beard-oil',
+    'magic-beard-balm': 'https://clipculturehaircare.com/products/magic-beard-balm',
+    'curl-twist': 'https://clipculturehaircare.com/products/curl-twist',
+    'therapeutic-shampoo': 'https://clipculturehaircare.com/products/beard-wash',
+    'rich-shea-butter': 'https://clipculturehaircare.com/products/intensive-body-lotion',
+    'bath-shower-gel': 'https://clipculturehaircare.com/products/body-wash',
+  };
+  const shopUrl = SHOPIFY_URLS[slug];
   const products = {
     [groomingSet.slug]: {
       id: 7,
@@ -358,17 +369,27 @@ const ProductDetail = () => {
               />
             </div>
 
-            {/* In-store notice for desktop (above 700px) */}
+                      {/* Buy online — desktop (above 700px) */}
             <div className="product-detail__actions-desktop">
-              <div className="product-detail__in-store-notice">
-                <div className="product-detail__in-store-badge">
-                  <Store size={18} />
-                  <span>In-Store Purchase Only</span>
+              {shopUrl ? (
+                <a
+                  className="product-detail__buy-button"
+                  href={shopUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Buy now — ${product.variants ? product.variants[selectedVariant].price : product.price}.00
+                </a>
+              ) : (
+                <div className="product-detail__in-store-notice">
+                  <div className="product-detail__in-store-badge">
+                    <Store size={18} />
+                    <span>In-Store Purchase Only</span>
+                  </div>
+                  <p className="product-detail__in-store-text">Visit our Sandy Springs shop to purchase this item.</p>
                 </div>
-                <p className="product-detail__in-store-text">Visit our Sandy Springs shop to purchase this item.</p>
-              </div>
+              )}
             </div>
-          </div>
 
           <div className="product-detail__info">
             <h1 className="product-detail__name">{product.name}</h1>
@@ -489,18 +510,27 @@ const ProductDetail = () => {
               </div>
             )}
 
-            {/* In-store notice for mobile (below 700px) */}
+                     {/* Buy online — mobile (below 700px) */}
             <div className="product-detail__actions-mobile">
-              <div className="product-detail__in-store-notice">
-                <div className="product-detail__in-store-badge">
-                  <Store size={18} />
-                  <span>In-Store Purchase Only</span>
+              {shopUrl ? (
+                <a
+                  className="product-detail__buy-button"
+                  href={shopUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Buy now — ${product.variants ? product.variants[selectedVariant].price : product.price}.00
+                </a>
+              ) : (
+                <div className="product-detail__in-store-notice">
+                  <div className="product-detail__in-store-badge">
+                    <Store size={18} />
+                    <span>In-Store Purchase Only</span>
+                  </div>
+                  <p className="product-detail__in-store-text">Visit our Sandy Springs shop to purchase this item.</p>
                 </div>
-                <p className="product-detail__in-store-text">Visit our Sandy Springs shop to purchase this item.</p>
-              </div>
+              )}
             </div>
-          </div>
-        </div>
 
         {/* You May Also Like Section */}
         <section className="product-detail__related">
@@ -542,7 +572,7 @@ const ProductDetail = () => {
                     <div className="product-detail__related-info">
                       <h4 className="product-detail__related-name" title={relProduct.name}>{relProduct.name}</h4>
                       <p className="product-detail__related-price">
-                        ${relProduct.price}.00 USD · In-Store Only
+                        ${relProduct.price}.00 USD
                       </p>
                     </div>
                   </Link>
@@ -583,7 +613,7 @@ const ProductDetail = () => {
                 <div className="product-detail__related-info">
                   <h4 className="product-detail__related-name" title={relProduct.name}>{relProduct.name}</h4>
                   <p className="product-detail__related-price">
-                    ${relProduct.price}.00 USD · In-Store Only
+                    ${relProduct.price}.00 USD
                   </p>
                 </div>
               </Link>
