@@ -30,7 +30,6 @@ export const pages = {
 
 // Product pages whose title should not be built from the slug.
 const productPages = {
-  '/products/grooming-set': { title: 'Grooming Set: All 5 Products, Save $15 | Clip Culture', description: 'Get Clip Culture body wash, beard oil, shampoo, shea butter and beard balm together for $110 instead of $125, in store in Sandy Springs.' },
 };
 
 export function pageMeta(pathname, siteUrl = DEFAULT_SITE_URL) {
