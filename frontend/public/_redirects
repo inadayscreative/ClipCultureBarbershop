@@ -17,6 +17,7 @@
 /products/beard-wash   /products/therapeutic-shampoo/   301
 /products/body-lotion   /products/rich-shea-butter/   301
 /products/body-wash   /products/bath-shower-gel/   301
+/products/grooming-set   /shop/   301
 
 # Booking happens on Squire and Acuity through /book-now
 /booking   /book-now/   301
