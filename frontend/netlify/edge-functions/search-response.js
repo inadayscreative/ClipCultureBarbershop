@@ -9,7 +9,7 @@ const staticRoutes = new Set([
   '/home', '/mentorship-1', '/summerhill-old', '/products',
   ...detailPaths,
   ...legacyProductSlugs.map((slug) => `/products/${slug}`),
-]);
+  '/products/grooming-set', // retired product — _redirects sends it to /shop/]);
 
 export default async function searchResponse(request, context) {
   const url = new URL(request.url);
