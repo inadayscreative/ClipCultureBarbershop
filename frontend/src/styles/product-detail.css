@@ -1244,3 +1244,24 @@
     display: none;
   }
 }
+.product-detail__buy-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 17px 24px;
+  background: #101010;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.product-detail__buy-button:hover {
+  background: #1f6f5c;
+  transform: translateY(-1px);
+}
