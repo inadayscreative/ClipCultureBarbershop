@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Star, ChevronLeft, ChevronRight, Store, Gift } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Star, ChevronLeft, ChevronRight, Store } from 'lucide-react';
 import '../styles/product-detail.css';
 import Product1 from '../assets/products/Product-1.webp';
 import CurlTwistBack from '../assets/products/curl-twist-ingredients-back.webp';
@@ -16,7 +16,6 @@ import GelFront from '../assets/products/bath-shower-gel-front.webp';
 import GelBack from '../assets/products/bath-shower-gel-ingredients-back.webp';
 import BeardLineUp1 from '../assets/products/Beard-Line-Up-1.webp';
 import BeardLineUp2 from '../assets/products/Beard-Line-Up-2.webp';
-import { groomingSet, groomingSetImages, groomingSetItems, groomingSetSlugs } from '../lib/groomingSet.js';
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -46,27 +45,6 @@ const ProductDetail = () => {
   };
   const shopUrl = SHOPIFY_URLS[slug];
   const products = {
-    [groomingSet.slug]: {
-      id: 7,
-      name: groomingSet.name,
-      price: groomingSet.price,
-      originalPrice: groomingSet.originalPrice,
-      size: '5 products',
-      isSet: true,
-      image: groomingSetImages.giftBox,
-      imageAlt: 'Clip Culture Grooming Set: body wash, beard oil, shampoo, shea butter and beard balm in a gold gift box',
-      hoverImage: groomingSetImages.tealCase,
-      hoverAlt: 'The five Clip Culture grooming products in a teal carrying case',
-      viewLabel: 'another photo',
-      description: `The full Clip Culture Hair Care line, introduced in 2021, in one set: everything for hair, beard and skin, from wash day to finish. Buy all five together for <strong>$${groomingSet.price}</strong> instead of $${groomingSet.originalPrice} and save $${groomingSet.savings}. Ready to give, or to restock your own routine.`,
-      bundleIncludes: groomingSetItems,
-      features: [
-        `Save $${groomingSet.savings} compared with buying each product separately`,
-        'Covers hair, beard and skin in one routine',
-        'Developed by master barber David Brown',
-        'A ready-made gift for birthdays and the holidays'
-      ]
-    },
     'beard-line-up-enhancement': {
       id: 0,
       name: "Beard & Line Up Enhancement",
@@ -77,7 +55,7 @@ const ProductDetail = () => {
       description: "Developed by master barber David Brown, owner of Clip Culture Barbershop. <strong>Revive</strong> is a premium beard and hair line-up enhancement designed for precision, performance, and staying power. This semi-permanent airbrush dye delivers a clean, natural-looking definition that holds through sweat, humidity, and long days behind the chair.",
       variants: [
         { sku: "BLINE-2OZ", size: "2 oz", price: 25 },
-        { sku: "BLINE-4OZ", size: "4 oz", price: 25 }
+        { sku: "BLINE-4OZ", size: "4 oz", price: 40 }
       ],
       features: [
         "Enhances beard and hairline definition for a sharp, clean finish",
@@ -208,14 +186,6 @@ const ProductDetail = () => {
   // All products for "You may also like" - exclude current product
   const allProducts = [
     {
-      id: 7,
-      name: groomingSet.name,
-      price: groomingSet.price,
-      image: groomingSetImages.giftBoxSmall,
-      slug: groomingSet.slug,
-      isSet: true,
-    },
-    {
       id: 2,
       name: "Magic Beard Balm",
       price: 25,
@@ -273,7 +243,7 @@ const ProductDetail = () => {
 
   // Suggest other grooming items only: never the product being viewed, and on the Grooming Set
   // page never the five products already inside the set (that leaves Curl Twist and Beard & Line Up).
-  const excludedSlugs = new Set([slug, ...(slug === groomingSet.slug ? groomingSetSlugs : [])]);
+  const excludedSlugs = new Set([slug]);
   const relatedProducts = allProducts.filter(p => !excludedSlugs.has(p.slug));
   
   // Carousel configuration
@@ -437,9 +407,7 @@ const ProductDetail = () => {
               </div>
             )}
             <div className="product-detail__rating">
-              {product.isSet ? (
-                <span className="product-detail__set-savings">Save ${groomingSet.savings} as a set</span>
-              ) : product.isNewDrop ? (
+              {product.isNewDrop ? (
                 <span className="product-detail__new-drop">
                   new drop{' '}
                   <span className="fire-emoji">🔥</span>
@@ -467,22 +435,6 @@ const ProductDetail = () => {
                   ))}
                 </ul>
               </div>
-            )}
-
-            {groomingSetSlugs.includes(slug) && (
-              <Link
-                to={`/products/${groomingSet.slug}`}
-                state={{ from: fromPage || 'home' }}
-                className="product-detail__set-offer"
-              >
-                <img src={groomingSetImages.giftBoxSmall} alt="" loading="lazy" />
-                <span className="product-detail__set-offer-text">
-                  <span className="product-detail__set-offer-eyebrow"><Gift size={15} aria-hidden="true" /> Get all five</span>
-                  <strong>{product.name} is part of the Grooming Set</strong>
-                  <span>All five products for ${groomingSet.price}, a ${groomingSet.savings} saving.</span>
-                </span>
-                <ArrowRight size={20} aria-hidden="true" className="product-detail__set-offer-arrow" />
-              </Link>
             )}
 
             <div className="product-detail__features">
@@ -565,9 +517,6 @@ const ProductDetail = () => {
                     className="product-detail__related-card"
                   >
                     <div className={`product-detail__related-image${relProduct.isSet ? ' product-detail__related-image--photo' : ''}`}>
-                      {relProduct.isSet && (
-                        <span className="product-detail__related-badge">Save ${groomingSet.savings}</span>
-                      )}
                       {relProduct.isNewDrop && (
                         <span className="product-detail__related-badge">New</span>
                       )}
@@ -606,9 +555,6 @@ const ProductDetail = () => {
                 className="product-detail__related-card"
               >
                 <div className={`product-detail__related-image${relProduct.isSet ? ' product-detail__related-image--photo' : ''}`}>
-                  {relProduct.isSet && (
-                    <span className="product-detail__related-badge">Save ${groomingSet.savings}</span>
-                  )}
                   {relProduct.isNewDrop && (
                     <span className="product-detail__related-badge">New</span>
                   )}
