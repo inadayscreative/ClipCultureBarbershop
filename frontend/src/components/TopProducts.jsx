@@ -226,8 +226,7 @@ const TopProducts = ({ limit }) => {
                     )}
                   </div>
                   <div className="product-card__in-store-notice">
-                    <span className="product-card__in-store-badge">In-Store Only</span>
-                  </div>
+                    <span className="product-card__in-store-badge">Shop Online</span>                  </div>
                   <div className="product-card__actions product-card__actions--single">
                     <Link 
                       to={`/products/${product.slug}`} 
