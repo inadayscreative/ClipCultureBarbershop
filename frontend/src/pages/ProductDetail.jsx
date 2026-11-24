@@ -391,6 +391,8 @@ const ProductDetail = () => {
               )}
             </div>
 
+          </div>
+
           <div className="product-detail__info">
             <h1 className="product-detail__name">{product.name}</h1>
             <div className="product-detail__price-container">
@@ -531,6 +533,8 @@ const ProductDetail = () => {
                 </div>
               )}
             </div>
+</div>
+        </div>
 
         {/* You May Also Like Section */}
         <section className="product-detail__related">
